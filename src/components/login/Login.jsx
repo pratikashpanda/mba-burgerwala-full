@@ -27,8 +27,8 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Username:", username);
-    console.log("Password:", password);
+    // console.log("Username:", username);
+    // console.log("Password:", password);
     dispatch(loginUser(username, password));
   };
 

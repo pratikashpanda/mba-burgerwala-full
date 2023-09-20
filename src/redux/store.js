@@ -18,4 +18,4 @@ export default store;
 
 
 
-export const server = "http://localhost:8080/api/v1";
+export const server = "https://mba-burgerwala.onrender.com/api/v1";
