@@ -19,7 +19,7 @@ import NotFound from "./components/layout/NotFound";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./redux/actions/user";
-import toast, { Toaster } from "react-hot-toast";
+// import toast, { Toaster } from "react-hot-toast";
 import { ProtectedRoute } from "protected-route-react";
 
 import "./styles/app.scss";
@@ -39,6 +39,7 @@ import "./styles/table.scss";
 import "./styles/orderDetails.scss";
 import "./styles/dashboard.scss";
 import "./styles/about.scss";
+import Register from "./components/login/Register";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,20 +51,20 @@ function App() {
     dispatch(loadUser());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-      dispatch({
-        type: "clearError",
-      });
-    }
-    if (message) {
-      toast.success(message);
-      dispatch({
-        type: "clearMessage",
-      });
-    }
-  }, [dispatch, error, message]);
+  // useEffect(() => {
+  //   if (error) {
+  //     toast.error(error);
+  //     dispatch({
+  //       type: "clearError",
+  //     });
+  //   }
+  //   if (message) {
+  //     toast.success(message);
+  //     dispatch({
+  //       type: "clearMessage",
+  //     });
+  //   }
+  // }, [dispatch, error, message]);
 
   return (
     <Router>
@@ -72,8 +73,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
+        <Route path="/shipping" element={<Shipping />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+        <Route path="/register" element={<Register />} />
 
         <Route
           path="/login"
@@ -111,7 +114,7 @@ function App() {
       </Routes>
 
       <Footer />
-      <Toaster />
+      {/* <Toaster /> */}
     </Router>
   );
 }

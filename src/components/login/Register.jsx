@@ -6,19 +6,28 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/actions/user";
-import { createMuiTheme } from "@mui/material";
 
-  
-
-const Login = () => {
-  const dispatch = useDispatch();
+const Register = () => {
   const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  };
+
+  const handleRoleChange = (e) => {
+    setRole(e.target.value);
+  };
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -29,19 +38,27 @@ const Login = () => {
     event.preventDefault();
     console.log("Username:", username);
     console.log("Password:", password);
-    dispatch(loginUser(username, password));
+    // Add your login logic here (e.g., send a request to the server)
+    const { data } = await axios.post("http://localhost:8080/api/v1/register", {
+      name: name,
+      email: username,
+      password: password,
+      phone: phone,
+      role: role,
+    });
+
+    console.log(data);
   };
 
-  // const loginHandler = () => {
-  //   window.open(`${server}/googlelogin`, "_self");
-  // };
-
-  const buttonStyle = {
-    width: '20rem', // Set the desired width
+  const loginHandler = () => {
+    window.open(`${server}/googlelogin`, "_self");
   };
 
   return (
-    <section className="login">
+    <section
+      style={{ display: "flex", flexDirection: "column" }}
+      className="register"
+    >
       {/* <motion.button
         initial={{ y: "-100vh" }}
         animate={{ y: 0 }}
@@ -49,15 +66,38 @@ const Login = () => {
       >
         <FcGoogle />
       </motion.button> */}
+
       <form onSubmit={handleSubmit}>
+        <TextField
+          label="Name"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={name}
+          onChange={handleNameChange}
+        />
+        <TextField
+          label="Phone"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={phone}
+          onChange={handlePhoneChange}
+        />
+        <TextField
+          label="Role"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={role}
+          onChange={handleRoleChange}
+        />
         <TextField
           label="Username"
           variant="outlined"
           fullWidth
-          className="inputField"
           margin="normal"
           value={username}
-          inputProps={{ style: { borderBlockColor: "white" } }}
           onChange={handleUsernameChange}
         />
         <TextField
@@ -76,17 +116,17 @@ const Login = () => {
           fullWidth
           size="large"
         >
-          Login
+          Register
         </Button>
       </form>
 
-      <Link to="/register">
-        <Button style={buttonStyle} className="registerBtn" variant="outlined" color="error" fullWidth size="large">
-          Register
+      <Link to="/login">
+        <Button variant="contained" color="primary" fullWidth size="large">
+          Login
         </Button>
       </Link>
     </section>
   );
 };
 
-export default Login;
+export default Register;
